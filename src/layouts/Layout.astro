@@ -1,0 +1,91 @@
+---
+interface Props {
+	title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+
+		<link rel="preconnect" href="https://rsms.me/" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+
+		<svg width="10" height="10" viewBox="0 0 10 10">
+			<clipPath id="squircleClip" clipPathUnits="objectBoundingBox">
+				<path fill="red" stroke="none" d="M 0,0.5 C 0,0 0,0 0.5,0 S 1,0 1,0.5 1,1 0.5,1 0,1 0,0.5"
+				></path>
+			</clipPath>
+		</svg>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		font-family: Inter, sans-serif;
+		font-feature-settings:
+			'liga' 1,
+			'calt' 1; /* fix for Chrome */
+	}
+
+	@supports (font-variation-settings: normal) {
+		:root {
+			font-family: InterVariable, sans-serif;
+		}
+	}
+
+	.squircle {
+		clip-path: url(#squircleClip);
+	}
+
+	.content-grid {
+		--padding-inline: clamp(1.875rem, -8.8125rem + 23.75vw, 9rem); /* From 30px to 144px */
+		--content-max-width: 1224px;
+		--breakout-max-width: 1397px;
+
+		--breakout-size: calc((var(--breakout-max-width) - var(--content-max-width)) / 2);
+
+		display: grid;
+		grid-template-columns:
+			[full-width-start] minmax(var(--padding-inline), 1fr)
+			[breakout-start] minmax(0, var(--breakout-size))
+			[content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width))
+			[content-end]
+			minmax(0, var(--breakout-size)) [breakout-end]
+			minmax(var(--padding-inline), 1fr) [full-width-end];
+	}
+
+	.content-grid > :not(.breakout, .full-width),
+	.full-width > :not(.breakout, .full-width) {
+		grid-column: content;
+	}
+
+	.content-grid > .breakout {
+		grid-column: breakout;
+	}
+
+	.content-grid > .full-width {
+		grid-column: full-width;
+
+		display: grid;
+		grid-template-columns: inherit;
+	}
+
+	img.full-width {
+		width: 100%;
+		max-height: 45vh;
+		object-fit: cover;
+	}
+</style>
