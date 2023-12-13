@@ -23,7 +23,7 @@ const { title } = Astro.props
 	<body>
 		<slot />
 
-		<svg width="10" height="10" viewBox="0 0 10 10">
+		<svg class="sr-only" width="10" height="10" viewBox="0 0 10 10">
 			<clipPath id="squircleClip" clipPathUnits="objectBoundingBox">
 				<path fill="red" stroke="none" d="M 0,0.5 C 0,0 0,0 0.5,0 S 1,0 1,0.5 1,1 0.5,1 0,1 0,0.5"
 				></path>
@@ -51,9 +51,9 @@ const { title } = Astro.props
 	}
 
 	.content-grid {
-		--padding-inline: clamp(1.875rem, -8.8125rem + 23.75vw, 9rem); /* From 30px to 144px */
-		--content-max-width: 1224px;
-		--breakout-max-width: 1397px;
+		--padding-inline: 1.5rem;
+		--content-max-width: 1260px;
+		--breakout-max-width: 1400px;
 
 		--breakout-size: calc((var(--breakout-max-width) - var(--content-max-width)) / 2);
 
@@ -81,11 +81,5 @@ const { title } = Astro.props
 
 		display: grid;
 		grid-template-columns: inherit;
-	}
-
-	img.full-width {
-		width: 100%;
-		max-height: 45vh;
-		object-fit: cover;
 	}
 </style>
