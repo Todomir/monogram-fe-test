@@ -1,7 +1,7 @@
 {
 	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
-		"baseUrl": "/Users/abno/Development/work/monogram/monogram-fe-test/src",
+		"baseUrl": "./src",
 		"paths": {
 			"~/*": ["./*"]
 		},
