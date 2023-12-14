@@ -67,11 +67,10 @@ function getImageOrder(seed: number, images: ImageType[]): ImageType[] {
 
 <Image aria-hidden="true" class="full-width h-auto w-full" src={squigglyDark} alt="" />
 
-<spline-viewer
-	id="api-spline"
-	loading-anim-type="spinner-small-dark"
-	class="relative z-20 mx-auto aspect-square w-full max-w-[914px] -translate-y-[50%]"
-	url="https://prod.spline.design/4JdI-p6cDYvWDsCo/scene.splinecode"></spline-viewer>
+<canvas
+	class="relative z-20 mx-auto aspect-square w-full max-w-[914px] -translate-y-[40%]"
+	id="api-canvas"
+	aria-hidden="true"></canvas>
 
 <style>
 	.api-logo {
@@ -84,6 +83,14 @@ function getImageOrder(seed: number, images: ImageType[]): ImageType[] {
 
 <script>
 	import { inView, animate, stagger } from 'motion'
+	import { Application } from '@splinetool/runtime'
+
+	// make sure you have a canvas in the body
+	const canvas = document.getElementById('api-canvas')
+
+	// start the application and load the scene
+	const spline = new Application(canvas as HTMLCanvasElement)
+	spline.load('https://prod.spline.design/4JdI-p6cDYvWDsCo/scene.splinecode')
 
 	inView('#api-image', ({ target }) => {
 		animate(
