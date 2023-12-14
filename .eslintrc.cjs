@@ -2,42 +2,50 @@ module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
-		node: true
+		node: true,
 	},
 	extends: [
-		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:astro/recommended',
-		'prettier'
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
 	],
 	overrides: [
 		{
 			env: {
-				node: true
+				node: true,
 			},
-			files: ['.eslintrc.{js,cjs}'],
+			files: [".eslintrc.{js,cjs}"],
 			parserOptions: {
-				sourceType: 'script'
-			}
+				sourceType: "script",
+			},
 		},
 		{
-			// Define the configuration for `.astro` file.
-			files: ['*.astro'],
-			// Allows Astro components to be parsed.
-			parser: 'astro-eslint-parser',
-			// Parse the script in `.astro` as TypeScript by adding the following configuration.
-			// It's the setting you need when using TypeScript.
+			files: ["*.astro"],
+			parser: "astro-eslint-parser",
+			extends: ["plugin:astro/recommended", "prettier"],
 			parserOptions: {
-				parser: '@typescript-eslint/parser',
-				extraFileExtensions: ['.astro']
-			}
-		}
+				parser: "@typescript-eslint/parser",
+				extraFileExtensions: [".astro"],
+			},
+		},
+		{
+			files: ["*.jsx", "*.tsx"],
+			parser: "@typescript-eslint/parser",
+			extends: [
+				"plugin:@typescript-eslint/recommended",
+				"plugin:react/recommended",
+				"prettier",
+			],
+			rules: {
+				"react/react-in-jsx-scope": "off",
+			},
+		},
 	],
-	parser: '@typescript-eslint/parser',
+	parser: "@typescript-eslint/parser",
 	parserOptions: {
-		ecmaVersion: 'latest',
-		sourceType: 'module'
+		ecmaVersion: "latest",
+		sourceType: "module",
 	},
-	plugins: ['@typescript-eslint', 'astro'],
-	rules: {}
-}
+	plugins: ["@typescript-eslint", "astro"],
+	rules: {},
+};
