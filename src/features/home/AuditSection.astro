@@ -1,0 +1,61 @@
+---
+import CircularProgress from '~/components/CircularProgress'
+---
+
+<!-- Audit Section -->
+<section class="full-width bg-neutral-900 pb-24">
+	<div
+		id="audit-section"
+		class="bg-gradient-[25deg] relative z-20 -mt-8 flex flex-col items-stretch rounded-[68px] border border-white/20 from-white/[0.02] from-[18.54%] to-[rgb(123_245_93/0.11)] to-[62.25%] px-20 py-12 backdrop-blur-[60px] md:mx-16 lg:-mt-36"
+	>
+		<h2
+			id="audit-title"
+			class="mt-16 max-w-[570px] self-center text-center text-6xl font-black tracking-tight text-lime-50 md:text-7xl lg:text-9xl"
+		>
+			top audit scores
+		</h2>
+
+		<div class="mt-24 justify-between">
+			<div class="grid grid-cols-2 gap-5 md:grid-cols-4">
+				{
+					Array.from({ length: 4 }).map(() => (
+						<CircularProgress className="w-full h-full" progress={100} />
+					))
+				}
+			</div>
+		</div>
+
+		<div
+			class="mb-32 mt-32 max-w-[756px] space-y-12 self-center text-base leading-10 text-stone-300 mix-blend-color-dodge md:text-lg lg:text-2xl"
+		>
+			<p>
+				Search engines, business stakeholders, and end-users gauge a website’s value using metric
+				tools like Google Lighthouse, which measures site performance, SEO, and accessibility
+			</p>
+			<p>
+				Performance is one of the most difficult scores to get to 100. This is especially true in a
+				time when users demand JavaScript-heavy, highly-interactive web experiences.
+			</p>
+			<p>
+				A Jamstack website, delivering SEO-friendly, lean & clean HTML in milliseconds, promises
+				higher search-engine ranking and a more positive, responsive end-user experience.
+			</p>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { inView, animate, stagger } from 'motion'
+
+	inView('#audit-section', ({ target }) => {
+		animate(
+			target.querySelectorAll('*'),
+			{ opacity: [0, 1], y: [-100, 0] },
+			{ duration: 0.7, delay: stagger(0.03, { start: 0.1 }) }
+		)
+	})
+
+	inView('.progress', ({ target }) => {
+		target.classList.toggle('progress__progress--active')
+	})
+</script>
