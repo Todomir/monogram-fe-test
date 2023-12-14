@@ -1,0 +1,65 @@
+.marquee {
+	--gap: 2rem;
+	--scroll-start: 0;
+	--scroll-end: calc(-100% - var(--gap));
+
+	display: flex;
+	overflow: hidden;
+	user-select: none;
+	gap: var(--gap);
+	mask-image: linear-gradient(
+		var(--mask-direction),
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.65) 40%,
+		rgba(0, 0, 0, 0.65) 50%,
+		rgba(0, 0, 0, 0) 100%
+	);
+}
+
+.marquee__content {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	gap: var(--gap);
+	min-width: 100%;
+	animation: scroll-x 60s linear infinite;
+}
+
+@keyframes scroll-x {
+	from {
+		transform: translateX(var(--scroll-start));
+	}
+	to {
+		transform: translateX(var(--scroll-end));
+	}
+}
+
+@keyframes scroll-y {
+	from {
+		transform: translateY(var(--scroll-start));
+	}
+	to {
+		transform: translateY(var(--scroll-end));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.marquee__content {
+		animation-play-state: paused;
+	}
+}
+
+.marquee[data-orientation='vertical'] {
+	--mask-direction: to bottom;
+}
+.marquee[data-orientation='vertical'],
+.marquee[data-orientation='vertical'] .marquee__content {
+	flex-direction: column;
+	animation-name: scroll-y;
+}
+
+.marquee[data-reverse] {
+	--scroll-start: calc(-100% - var(--gap));
+	--scroll-end: 0;
+}
