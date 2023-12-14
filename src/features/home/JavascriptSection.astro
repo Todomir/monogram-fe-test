@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets'
+
+import ComputerImage from '~/components/ComputerImage'
+
+import javascriptOrangeSection from '~/assets/javascript-orange-section.png'
+import javascriptSquigglyArrow from '~/assets/javascript-squiggly-arrow.svg?raw'
+---
+
+---
+
+<!-- Javascript Section -->
+<section
+	class="breakout bg-fill relative z-10 mt-11 h-full max-h-[893px] w-full overflow-x-clip md:px-24"
+>
+	<header class="z-20 mb-12 flex flex-col px-4 pt-24 md:gap-5">
+		<h2
+			id="javascript-title"
+			class="max-w-full self-center whitespace-nowrap text-center text-5xl font-black leading-[51px] tracking-tighter text-white md:text-8xl lg:text-9xl lg:leading-[152px]"
+		>
+			javascript
+		</h2>
+		<p
+			style={{ animationDelay: '0.2s' }}
+			id="javascript-description"
+			class="mb-4 mt-10 max-w-[518px] self-center text-center text-lg font-light leading-9 tracking-normal text-white opacity-0"
+		>
+			Statically generated pages are brought to life with client-side JavaScript libraries and
+			frameworks, such as Algolia and Next.js.
+		</p>
+	</header>
+
+	<ComputerImage
+		client:visible
+		className="javascript-section-computer relative z-20 mx-auto h-full max-h-[698px] w-full max-w-[810px]"
+	/>
+
+	<Image
+		id="javascript-orange-section"
+		class="absolute left-0 top-0 -z-[1] h-full w-full rounded-3xl object-none"
+		src={javascriptOrangeSection}
+		alt=""
+	/>
+
+	<div
+		class="animate-fade-in-down absolute right-24 top-[30%] z-30 ml-[30%] hidden w-fit -translate-x-1/2 opacity-0 will-change-transform [animation-delay:0.6s] xl:block"
+		set:html={javascriptSquigglyArrow}
+	/>
+</section>
+
+<style>
+	@keyframes float {
+		0% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	.animate-float {
+		animation: float 5000ms infinite ease-in-out;
+		animation-delay: calc(var(--_index) * 500ms);
+	}
+
+	@media (prefers-reduced-motion) {
+		.animate-float {
+			animation: none;
+		}
+	}
+</style>
+
+<script>
+	import { inView, animate } from 'motion'
+
+	inView('#javascript-orange-section', ({ target }) => {
+		animate(target, { opacity: [0, 1], y: [-10, 0] }, { duration: 1.5 }).finished.then(() => {
+			target.classList.add('animate-float')
+		})
+	})
+
+	inView('.javascript-section-computer', ({ target }) => {
+		animate(
+			target,
+			{ opacity: [0, 1], y: [-100, 0] },
+			{
+				delay: 0.2,
+				duration: 1
+			}
+		)
+	})
+
+	inView('#javascript-title', ({ target }) => {
+		target.classList.add('animate-fade-in-down')
+	})
+
+	inView('#javascript-description', ({ target }) => {
+		target.classList.add('animate-fade-in-down')
+	})
+</script>
