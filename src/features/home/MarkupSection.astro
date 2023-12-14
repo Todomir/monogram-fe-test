@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets'
+
+import markupBlockStart from '~/assets/markup-block-start.png'
+import markupBlockEnd from '~/assets/markup-block-end.png'
+
+import markupWallOfBlocks from '~/assets/markup-wall-of-blocks.svg'
+import markupToppledBlocks from '~/assets/markup-toppled-blocks.svg'
+---
+
+<!-- Markup Section -->
+<section class="full-width relative">
+	<article class="flex h-full w-full flex-col gap-32 pb-36 md:pb-96 xl:flex-row-reverse">
+		<div
+			aria-hidden={true}
+			id="markup-image"
+			class="relative mx-auto flex h-[30dvh] w-full items-end gap-12 md:h-[514px] xl:h-[964px]"
+		>
+			<Image
+				style={{ '--_index': 4 }}
+				class="relative -top-[50%] -z-10 inline-block h-full max-h-[629px] w-full max-w-[280px] md:-top-[30%] lg:-top-[20%]"
+				src={markupBlockStart}
+				alt=""
+			/>
+			<div
+				style={{ '--_index': -1 }}
+				class="squircle relative z-10 -ml-[25%] inline-block aspect-[9/16] h-full max-h-[479px] w-full max-w-[280px] translate-y-full border border-white border-opacity-30 bg-white bg-opacity-50 backdrop-blur-2xl"
+			>
+			</div>
+
+			<Image
+				style={{ '--_index': 2 }}
+				class="relative -top-[50%] -z-10 -ml-12 inline-block h-full max-h-[670px] w-full max-w-[278px] md:-top-[30%] lg:-top-[20%]"
+				src={markupBlockEnd}
+				alt=""
+			/>
+			<div
+				style={{ '--_index': 1 }}
+				class="squircle relative -ml-[15%] inline-block aspect-[9/16] h-full max-h-[662px] w-full max-w-[280px] border border-white border-opacity-30 bg-white bg-opacity-50 backdrop-blur-2xl"
+			>
+			</div>
+		</div>
+
+		<div id="markup-description" class="lg:mx-none mx-auto">
+			<h2 class="text-7xl font-black tracking-tight text-neutral-900 lg:text-9xl">markup</h2>
+			<p
+				class="mb-64 mt-10 max-w-[480px] text-lg font-light leading-9 tracking-tight text-neutral-500 lg:mb-24"
+			>
+				When ready for deployment, a static-site generator such as Astro or Next.js is used to
+				compile the website. The end result is a collection of pre-rendered HTML pages that can be
+				delivered lightning-fast over a CDN like Vercel’s Edge Network.
+			</p>
+			<Image
+				class="full-width absolute bottom-36 z-10 mx-auto w-full max-w-[320px] animate-float md:max-w-[420px] lg:bottom-1/4 lg:max-w-[620px]"
+				src={markupToppledBlocks}
+				alt=""
+			/>
+		</div>
+	</article>
+
+	<Image class="full-width absolute bottom-0 z-10 w-full" src={markupWallOfBlocks} alt="" />
+</section>
+
+<style>
+	.animate-float {
+		animation-delay: calc(var(--_index) * 500ms);
+	}
+</style>
+
+<script>
+	import { inView, animate, stagger } from 'motion'
+
+	inView('#markup-image', ({ target }) => {
+		animate(
+			target.querySelectorAll('*'),
+			{ opacity: [0, 1], y: [-100, 0] },
+			{ duration: 1.5, delay: stagger(0.1, { start: 0.2 }) }
+		).finished.then(() => {
+			target.classList.add('animate-float')
+		})
+	})
+
+	inView('#markup-description', ({ target }) => {
+		animate(
+			target.querySelectorAll('*'),
+			{ opacity: [0, 1], y: [-100, 0] },
+			{ duration: 0.7, delay: stagger(0.03, { start: 0.1 }) }
+		)
+	})
+</script>
