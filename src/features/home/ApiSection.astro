@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets'
+import { clsx } from 'clsx'
+
+import Marquee from '~/components/Marquee'
+
+import squigglyDark from '~/assets/squiggly-dark.svg'
+
+import nextjs from '~/assets/logos/nextjs.svg'
+import react from '~/assets/logos/react.svg'
+import vue from '~/assets/logos/vue.svg'
+import svelte from '~/assets/logos/svelte.svg'
+
+const images = [
+	{ src: nextjs, alt: 'Next.js' },
+	{ src: react, alt: 'React' },
+	{ src: vue, alt: 'Vue' },
+	{ src: svelte, alt: 'Svelte' }
+]
+
+type ImageType = (typeof images)[number]
+
+function getImageOrder(seed: number, images: ImageType[]): ImageType[] {
+	// Flexible image ordering logic based on seed
+	let orderedImages = [...images] // Copy the array to avoid mutating the original
+	const numberOfRotations = seed % images.length
+	for (let i = 0; i < numberOfRotations; i++) {
+		orderedImages.push(orderedImages.shift() as ImageType)
+	}
+	return orderedImages
+}
+---
+
+<!-- API Section -->
+<section class="full-width relative -mt-[40vh] w-full bg-[#151515] text-white">
+	<div id="api-image" aria-hidden="true" class="mt-[40%] grid h-screen w-full grid-cols-4">
+		{
+			Array.from({ length: 4 }, (_, seed) => (
+				<Marquee
+					style={{ animationDelay: `${seed * 0.15}s` }}
+					className={clsx([
+						'relative h-full will-change-transform',
+						{ '-translate-y-[10%]': seed === 1 || seed === 2 }
+					])}
+					orientation="vertical"
+					reverse
+				>
+					{getImageOrder(seed, images).map((image) => (
+						<Image class="api-logo z-30 w-[100px]" src={image.src} alt={image.alt} />
+					))}
+				</Marquee>
+			))
+		}
+	</div>
+
+	<div class="text-center">
+		<h2 id="api-title" class="text-7xl font-black tracking-tight lg:text-9xl">api</h2>
+		<p
+			id="api-description"
+			class="mx-auto mb-[10rem] mt-10 max-w-[549px] scale-100 text-lg font-light leading-9 tracking-tight sm:mb-[12rem] md:mb-96 lg:mb-72"
+		>
+			At build time, a Jamstack website uses data from one or more APIs to generate markup. These
+			APIs can be a headless CMS like Prismic, a database like Supabase, or even a local JSON file!
+		</p>
+	</div>
+</section>
+
+<Image aria-hidden="true" class="full-width h-auto w-full" src={squigglyDark} alt="" />
+
+<spline-viewer
+	id="api-spline"
+	loading-anim-type="spinner-small-dark"
+	class="relative z-20 mx-auto aspect-square w-full max-w-[914px] -translate-y-[50%]"
+	url="https://prod.spline.design/4JdI-p6cDYvWDsCo/scene.splinecode"></spline-viewer>
+
+<style>
+	.api-logo {
+		filter: drop-shadow(0px -164px 91px rgba(255, 255, 255, 0.31))
+			drop-shadow(0px -91px 70px rgba(255, 255, 255, 0.51))
+			drop-shadow(0px -35px 41px rgba(255, 255, 255, 0.41))
+			drop-shadow(0px 0px 30px rgba(255, 255, 255, 0.58));
+	}
+</style>
+
+<script>
+	import { inView, animate, stagger } from 'motion'
+
+	inView('#api-image', ({ target }) => {
+		animate(
+			target.querySelectorAll('.marquee'),
+			{ top: ['-8%', '0%'], opacity: [0, 1] },
+			{
+				delay: stagger(0.1, { start: 0.2 }),
+				easing: 'ease-in-out'
+			}
+		)
+	})
+
+	inView('#api-title', ({ target }) => {
+		target.classList.toggle('animate-fade-in-down')
+	})
+
+	inView('#api-description', ({ target }) => {
+		target.classList.toggle('animate-fade-in-down')
+	})
+
+	inView('#api-spline', ({ target }) => {
+		animate(target, { opacity: [0, 1], y: ['-60%', '-50%'] }, { duration: 1.5 })
+	})
+</script>
