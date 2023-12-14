@@ -1,0 +1,23 @@
+.progress {
+	filter: drop-shadow(0px 0px 61px #53fb2a) drop-shadow(0px 0px 42px #e9e11f)
+		drop-shadow(0px 0px 12px #53fb2a);
+
+	pointer-events: none;
+
+	stroke-dasharray: 1;
+	stroke-dashoffset: 1;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.progress__progress--active {
+	animation: progress 0.6s linear forwards;
+
+	animation-delay: 0.5s;
+}
+
+@keyframes progress {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
