@@ -1,9 +1,44 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+
+import Hero from '~/features/home/Hero.astro'
+import JavascriptSection from '~/features/home/JavascriptSection.astro'
+import ApiSection from '~/features/home/ApiSection.astro'
+import MarkupSection from '~/features/home/MarkupSection.astro'
+import AuditSection from '~/features/home/AuditSection.astro'
 ---
 
 <Layout title="Monogram FE Challenge">
-	<main class="content-grid overflow-x-clip pt-0 lg:pt-36">
-		<h1>Monogram FE Challenge</h1>
-	</main>
+	<!-- Main section -->
+	<div class="content-grid relative overflow-x-clip pt-0 lg:pt-36">
+		<!-- Grid lines -->
+		<div
+			aria-hidden="true"
+			class="pointer-events-none absolute inset-0 z-10 grid h-full w-full grid-cols-4"
+		>
+			<span class="inline-block h-full w-full border-x border-dashed border-white/20"></span>
+			<span class="inline-block h-full w-full"></span>
+			<span class="inline-block h-full w-full border-l border-dashed border-white/20"></span>
+			<span class="inline-block h-full w-full border-x border-dashed border-white/20"></span>
+		</div>
+
+		<!-- Main content -->
+		<main class="full-width content-grid">
+			<Hero />
+			<JavascriptSection />
+			<ApiSection />
+			<MarkupSection />
+			<AuditSection />
+		</main>
+
+		<!-- Footer -->
+		<footer
+			class="full-width -z-10 flex flex-col items-center justify-center bg-neutral-900 px-5 pb-20 pt-24 lg:pt-40"
+		>
+			<h1 class="mx-auto text-center text-2xl leading-10 text-white">
+				This is a design test by Abner Rodrigues for Monogram.
+			</h1>
+			<span class="mt-8 inline-block whitespace-nowrap text-center text-6xl text-pink-600">❤️</span>
+		</footer>
+	</div>
 </Layout>
